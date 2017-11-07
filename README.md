@@ -1,4 +1,6 @@
-This repo is a demo for using Apollo Client 2 with React. The master branch is for React Native -- check the Web branch for normal React.
+This repo is a collections of demos for using Apollo Client 2 with React.
+
+This is the React Native demo branch.
 
 ## Context
 
