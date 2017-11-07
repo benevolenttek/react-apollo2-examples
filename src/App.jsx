@@ -1,6 +1,4 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Linking } from 'react-native';
-import { Constants } from 'expo';
 
 import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
@@ -12,7 +10,7 @@ export default class App extends React.Component {
   createClient() {
     return new ApolloClient({
       link: createHttpLink({
-        uri: 'http://api.githunt.com/graphql',
+        uri: 'http://api.githunt.com/graphql'
       }),
       cache: new InMemoryCache(),
     });
@@ -21,9 +19,9 @@ export default class App extends React.Component {
   render() {
     return (
       <ApolloProvider client={this.createClient()}>
-        <View style={styles.container}>
+        <div>
           <FeedWithData />
-        </View>
+        </div>
       </ApolloProvider>
     );
   }
@@ -55,38 +53,34 @@ const FeedWithData = graphql(gql`
 
 function Feed({ data }) {
   if (data.loading) {
-    return <Text style={styles.loading}>Loading...</Text>;
+    return <div style={styles.loading}>Loading...</div>;
   }
 
   if (data.error) {
-    return <Text>Error! {data.error.message}</Text>;
+    return <div>Error! {data.error.message}</div>;
   }
 
   return (
-    <View>
-      <Text style={styles.title}>GitHunt</Text>
+    <div>
+      <div style={styles.title}>GitHunt</div>
       {data.feed.map((item,i) => <FeedItem key={i} item={item} />)}
-      <Button
-        style={styles.learnMore}
-        onPress={goToApolloWebsite}
-        title="Learn more about Apollo!"
-      />
-    </View>
+      <div>End Feed</div>
+    </div>
   );
 }
 
 function FeedItem({ item }) {
   return (
-    <View style={styles.feedItem}>
-      <Text style={styles.entry}>
+    <div style={styles.feedItem}>
+      <div style={styles.entry}>
         {item.repository.owner.login}/{item.repository.name}
-      </Text>
-      <Text>Posted by {item.postedBy.login}</Text>
-    </View>
+      </div>
+      <div>Posted by {item.postedBy.login}</div>
+    </div>
   );
 }
 
-const styles = StyleSheet.create({
+const styles = {
   entry: {
     fontWeight: 'bold',
   },
@@ -96,7 +90,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingTop: Constants.statusBarHeight,
+    paddingTop: 20,
     backgroundColor: '#ecf0f1',
   },
   feedItem: {
@@ -108,8 +102,4 @@ const styles = StyleSheet.create({
   loading: {
     margin: 20,
   },
-});
-
-function goToApolloWebsite() {
-  Linking.openURL('http://dev.apollodata.com').catch(e => console.log(e));
-}
+};
